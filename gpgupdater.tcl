@@ -20,9 +20,12 @@ exec tclsh8.5 "$0" "$@"
 package require Tk
 package require Ttk
 package require http
+package require tls
 package require control
 
-::ttk::setTheme clam
+ttk::setTheme clam
+tls::init -tls1 true -ssl2 false -ssl3 false
+http::register https 443 tls::socket
 
 # Lista de servidores habilitados (de aquí se obtiene la lista de
 # servidores por omisión cuando no hay archivo de configuración de
@@ -351,7 +354,7 @@ namespace eval preferencias {
       }
       close $fd
     } else {
-      set prefs(servidores,url) "http://fideo.no-ip.info/cgi-bin/viewcvs.cgi/*checkout*/gpgupdater/servidores"
+      set prefs(servidores,url) "https://raw.githubusercontent.com/fcr--/gpgupdater/master/servidores"
       foreach servidor $::lista_de_servidores {
 	set prefs(servidores,habilitado/$servidor) 1
       }
