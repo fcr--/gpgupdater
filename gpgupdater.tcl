@@ -630,10 +630,10 @@ proc lista_claves {} {
     }
     switch [lindex $linea 0] {
       sec {
-	regexp {[0-9A-Z]{8}} $linea id
+	regexp {[0-9A-Z]{8,16}} $linea id
       }
       pub {
-	regexp {[0-9A-Z]{8}} $linea id
+	regexp {[0-9A-Z]{8,16}} $linea id
       }
       uid {
 	if {![info exists uid]} {
@@ -648,4 +648,4 @@ proc lista_claves {} {
 preferencias::cargar
 crea_interfaz_lista "" [lista_claves]
 wm resizable . true false
-wm minsize . 300 1
+wm minsize . 400 1
